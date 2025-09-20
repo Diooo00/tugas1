@@ -64,7 +64,7 @@
                     <td>Laki Laki</td>
                     <td><div class="d-md-flex justify-content-md-center">
                         <button class="btn btn-primary1" type="button">Update</button>
-                        <button class="btn btn-primary2" type="button">Delete</button>
+                        <button class="btn btn-primary2" type="button" data-bs-toggle="modal" data-bs-target="#hapus">Delete</button>
                         </div>
                     </td>
                     </tr>
@@ -75,7 +75,7 @@
                     <td>Laki Laki</td>
                     <td><div class="d-md-flex justify-content-md-center">
                         <button class="btn btn-primary1" type="button">Update</button>
-                        <button class="btn btn-primary2" type="button">Delete</button>
+                        <button class="btn btn-primary2" type="button" data-bs-toggle="modal" data-bs-target="#hapus">Delete</button>
                         </div>
                     </td>
                     </tr>
@@ -86,12 +86,30 @@
                     <td>Laki Laki</td>
                     <td><div class="d-md-flex justify-content-md-center">
                         <button class="btn btn-primary1" type="button">Update</button>
-                        <button class="btn btn-primary2" type="button">Delete</button>
+                        <button class="btn btn-primary2" type="button" data-bs-toggle="modal" data-bs-target="#hapus">Delete</button>
                         </div>
                     </td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div class="modal fade" id="hapus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah anda yakin menghapus mahasiswa?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary2" data-bs-dismiss="modal">Hapus</button>
+                </div>
+                </div>
+            </div>
         </div>
 
   </body>
