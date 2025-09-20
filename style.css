@@ -3,3 +3,17 @@
     color: #212529;
     margin-top: 10vh;
 }
+
+.btn-primary1{
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    margin-right: 10px;
+    color: white;
+}
+
+.btn-primary2{
+    background-color: #fd0d0d;
+    border-color: #fd0d0d;
+    color: white;
+    margin-left: 10px;
+}
