@@ -114,3 +114,5 @@
 
   </body>
 </html>
+
+<?php echo $_POST["username"]; ?>
