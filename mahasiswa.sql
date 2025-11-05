@@ -40,11 +40,11 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `jenis_kelamin`, `created_at`) VALUES
-(8, '123240121', 'SATYA DIO PUTRANTO', 'Laki-laki', '2025-11-05 12:16:31'),
-(9, '123240119', 'FAREL MUHAMMAD KAUSAR', 'Laki-laki', '2025-11-05 12:16:55'),
-(10, '123240095', 'REZA PUTRI AWALIA', 'Perempuan', '2025-11-05 12:17:10'),
-(11, '123240115', 'SAFNA RECYFA NAQYA', 'Perempuan', '2025-11-05 12:17:27'),
-(12, '123240127', 'NAUFAL FAQIH MUSTAQIM', 'Laki-laki', '2025-11-05 12:17:48');
+(1, '123240121', 'SATYA DIO PUTRANTO', 'Laki-laki', '2025-11-05 12:16:31'),
+(2, '123240119', 'FAREL MUHAMMAD KAUSAR', 'Laki-laki', '2025-11-05 12:16:55'),
+(3, '123240095', 'REZA PUTRI AWALIA', 'Perempuan', '2025-11-05 12:17:10'),
+(4, '123240115', 'SAFNA RECYFA NAQYA', 'Perempuan', '2025-11-05 12:17:27'),
+(5, '123240127', 'NAUFAL FAQIH MUSTAQIM', 'Laki-laki', '2025-11-05 12:17:48');
 
 --
 -- Indexes for dumped tables
@@ -64,7 +64,7 @@ ALTER TABLE `mahasiswa`
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
