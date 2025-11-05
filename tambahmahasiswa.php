@@ -13,13 +13,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
    
     if ($stmt->execute()) {
         header("Location: index.php");
-        exit();
     } else {
         echo "Error: " . mysqli_error($koneksi);
     }
     $stmt->close();
     $connection->close();
-    echo "<a href='read.php'>Kembali ke dashboard</a>";
     die();
 }
 ?>

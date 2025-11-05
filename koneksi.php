@@ -7,7 +7,7 @@ $port = "3306";
 // ini untuk database mysql
 $username = "root";
 $password = "";
-$database = "univ";
+$database = "kampus";
 
 $connect = null;
 
