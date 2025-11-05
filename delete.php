@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
     $stmt->execute();
 
     header("Location: index.php");
-    die();
+    exit();
 } else {
     echo "Mahasiswa tidak ditemukan.";
 }

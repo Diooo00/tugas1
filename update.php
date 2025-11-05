@@ -9,7 +9,7 @@ if (!isset($_GET['id'])) { //kalau gada id yang mau diubah, dia langsung termina
 
 $id = $_GET['id'];
 
-// Ambil data lama berdasarkan ID
+// ambil data lama berdasarkan ID
 $query = "SELECT * FROM mahasiswa WHERE id = ?";
 $stmt = $connection->prepare($query);
 $stmt->bind_param('i', $id);
@@ -19,10 +19,10 @@ $data = $hasil->fetch_assoc();
 
 if (!$data) {
     echo "Data tidak ditemukan!";
-    die();
+    exit();
 }
 
-// Kalau form disubmit
+// kalau form disubmit
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nim = $_POST['nim'];
     $nama = $_POST['nama'];

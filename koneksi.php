@@ -15,5 +15,5 @@ try{
     $connection = new mysqli($ipserver, $username, $password, $database, $port);
 }catch(Exception $e){
     echo "Koneksi Gagal";
-    die();
+    exit();
 }
