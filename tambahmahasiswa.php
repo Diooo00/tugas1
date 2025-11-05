@@ -1,3 +1,29 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    require(__DIR__ . "/koneksi.php");
+    $nim = $_POST['nim'];
+    $nama = $_POST['nama'];
+    $jenis_kelaminn = $_POST['jenis_kelamin'];
+
+    $query = "INSERT INTO mahasiswa (nim, nama, jenis_kelamin) VALUES (?, ?, ?)";
+   
+    $stmt = $connection->prepare($query);
+   
+    $stmt->bind_param('sss', $nim, $nama, $jenis_kelaminn);
+   
+    if ($stmt->execute()) {
+        header("Location: index.php");
+        exit();
+    } else {
+        echo "Error: " . mysqli_error($koneksi);
+    }
+    $stmt->close();
+    $connection->close();
+    echo "<a href='read.php'>Kembali ke dashboard</a>";
+    die();
+}
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -10,8 +36,6 @@
   <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
-        <!-- Membuat Navbar   -->
-
         <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
             <div class="container-md">
             <a class="navbar-brand" href="#">
@@ -23,8 +47,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a href="index.html" class="nav-link active" aria-current="page" href="#">Home</a>
-                <a href="tambahmahasiswa.html" class="nav-link" href="#">Tambah Mahasiswa</a>
+                <a href="index.php" class="nav-link" aria-current="page" href="#">Home</a>
+                <a href="tambahmahasiswa.php" class="nav-link active" href="#">Tambah Mahasiswa</a>
             </div>
             </div>
         </div>
@@ -36,31 +60,25 @@
         </div>
 
         <div class="container-md">
-            <form>
+            <form method="POST" action="">
                 <div class="mb-3">
                     <label for="nim" class="form-label">NIM</label>
-                    <input type="NIM" class="form-control" id="nim" aria-describedby="emailHelp">
+                    <input type="text" class="form-control" id="nim" name="nim" required>
                 </div>
+
                 <div class="mb-3">
                     <label for="nama" class="form-label">Nama</label>
-                    <input type="Nama" class="form-control" id="nama">
+                    <input type="text" class="form-control" id="nama" name="nama" required>
                 </div>
                 
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="radioDefault" id="laki">
-                    <label class="form-check-label" for="laki">
-                        Laki Laki
-                    </label>
+                <div class="mb-3">
+                    <label class="form-label">Jenis Kelamin</label><br>
+                    <input type="radio" id="laki" name="jenis_kelamin" value="Laki-laki" required> Laki-laki <br>
+                    <input type="radio" id="perempuan" name="jenis_kelamin" value="Perempuan" required> Perempuan
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="radioDefault" id="perempuan">
-                    <label class="form-check-label" for="perempuan">
-                        Perempuan
-                    </label>
-                </div>
-                <br>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+                
+                <button type="submit" class="btn btn-primary">Simpan</button>
+                </form>
         </div>
 
   </body>
