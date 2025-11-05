@@ -1,17 +1,14 @@
 <?php
+require(__DIR__ . "/koneksi.php");
 
-require_once(__DIR__ . '/koneksi.php'); //untuk memanggil file koneksi.php
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $stmt = $connection->prepare("DELETE FROM mahasiswa WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
 
-$hapusNim = $_GET['nim'];
-$sql = "DELETE FROM mahasiswa WHERE nim = ?";
-
-$stmt = $connection->prepare($sql);
-$stmt->bind_param("s", $hapusNim);
-if($stmt->execute()){
-    echo "Data berhasil dihapus.";
+    header("Location: index.php");
+    die();
+} else {
+    echo "Mahasiswa tidak ditemukan.";
 }
-else{
-    echo "Gagal menghapus data: ";
-}
-
-echo "<a href='read.php'>Kembali ke dashboard</a>";
