@@ -1,3 +1,18 @@
+<?php   
+require(__DIR__ . "/koneksi.php");
+
+$keyword = $_GET['keyword'] ?? '';
+if ($keyword !== '') {
+    $stmt = $connection->prepare("SELECT * FROM mahasiswa WHERE nama LIKE ?");
+    $cari = "%{$keyword}%";
+    $stmt->bind_param("s", $cari);
+    $stmt->execute();
+    $hasil = $stmt->get_result();
+} else {
+    $hasil = $connection->query("SELECT * FROM mahasiswa");
+}
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -23,8 +38,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a href="index.html" class="nav-link active" aria-current="page" href="#">Home</a>
-                <a href="tambahmahasiswa.html" class="nav-link" href="#">Tambah Mahasiswa</a>
+                <a href="index.php" class="nav-link active" aria-current="page" href="#">Home</a>
+                <a href="tambahmahasiswa.php" class="nav-link" href="#">Tambah Mahasiswa</a>
             </div>
             </div>
         </div>
@@ -37,8 +52,8 @@
         <div class="container-md">
             <form class="container-fluid">
                 <div class="input-group">
-                <span class="input-group-text" id="basic-addon1">🔎</span>
-                <input type="text" class="form-control" placeholder="Cari Mahasiswa" aria-label="Cari Mahasiswa" aria-describedby="basic-addon1"/>
+                    <input type="text" class="form-control" placeholder="Cari Mahasiswa" name="keyword" aria-label="Cari Mahasiswa" value="<?= htmlspecialchars($keyword) ?>"/>
+                    <button class="btn btn-outline-secondary" type="submit">Cari</button>
                 </div>
             </form>
         </div>
@@ -46,7 +61,7 @@
         <br>
 
         <div class="container-md">
-            <table class="table table-dark table-striped-columns">
+            <table class="table table-dark table-striped">
                 <thead>
                     <tr>
                     <th scope="col">No.</th>
@@ -57,62 +72,50 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                    <th scope="row">1</th>
-                    <td>123240121</td>
-                    <td>Satya Dio Putranto</td>
-                    <td>Laki Laki</td>
-                    <td><div class="d-md-flex justify-content-md-center">
-                        <button class="btn btn-primary1" type="button">Update</button>
-                        <button class="btn btn-primary2" type="button" data-bs-toggle="modal" data-bs-target="#hapus">Delete</button>
-                        </div>
-                    </td>
-                    </tr>
-                    <tr>
-                    <th scope="row">2</th>
-                    <td>123240123</td>
-                    <td>Dimas Rizky Ardiansyah</td>
-                    <td>Laki Laki</td>
-                    <td><div class="d-md-flex justify-content-md-center">
-                        <button class="btn btn-primary1" type="button">Update</button>
-                        <button class="btn btn-primary2" type="button" data-bs-toggle="modal" data-bs-target="#hapus">Delete</button>
-                        </div>
-                    </td>
-                    </tr>
-                    <tr>
-                    <th scope="row">3</th>
-                    <td>123240119</td>
-                    <td>Farel Muhammad Kausar</td>
-                    <td>Laki Laki</td>
-                    <td><div class="d-md-flex justify-content-md-center">
-                        <button class="btn btn-primary1" type="button">Update</button>
-                        <button class="btn btn-primary2" type="button" data-bs-toggle="modal" data-bs-target="#hapus">Delete</button>
-                        </div>
-                    </td>
-                    </tr>
+                    <?php
+                    if ($hasil && $hasil->num_rows > 0) {
+                        $no = 1;
+                        while ($row = $hasil->fetch_assoc()) {
+                            ?>
+                            <tr>
+                                <td><h5><?= $no ?></h5></td>
+                                <td><?= htmlspecialchars($row['nim']) ?></td>
+                                <td><?= htmlspecialchars($row['nama']) ?></td>
+                                <td><?= htmlspecialchars($row['jenis_kelamin']) ?></td>
+                                <td>
+                                    <a href="update.php?id=<?= $row['id'] ?>" class="btn btn-primary1">Update</a>
+                                    <button class="btn btn-primary2" type="button" data-bs-toggle="modal" data-bs-target="#hapus<?= $row['id'] ?>">Delete</button>
+                                </td>
+                            </tr>
+
+                            <div class="modal fade" id="hapus<?= $row['id'] ?>" tabindex="-1" aria-labelledby="hapuslabel<?= $row['id'] ?>" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="hapuslabel<?= $row['id'] ?>">Hapus Data</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    
+                                    <div class="modal-body">
+                                        Apakah anda yakin menghapus mahasiswa dengan nama <strong><?= htmlspecialchars($row['nama']) ?></strong>?
+                                    </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                            <a href="delete.php?id=<?= $row['id'] ?>" class="btn btn-primary2">Hapus</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+                            $no++;
+                        }
+                    } else {
+                        echo "<tr><td colspan='5' class='text-center'>Tidak ada data.</td></tr>";
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>
 
-        <div class="modal fade" id="hapus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Apakah anda yakin menghapus mahasiswa?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-primary2" data-bs-dismiss="modal">Hapus</button>
-                </div>
-                </div>
-            </div>
-        </div>
-
   </body>
 </html>
-
-<?php echo $_POST["username"]; ?>

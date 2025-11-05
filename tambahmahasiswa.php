@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="radio" id="perempuan" name="jenis_kelamin" value="Perempuan" required> Perempuan
                 </div>
                 
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="submit" class="btn btn-primary">submit</button>
                 </form>
         </div>
 
